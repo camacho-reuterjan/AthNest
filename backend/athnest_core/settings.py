@@ -13,28 +13,27 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qs
+import dj_database_url
 import os
 
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# -------------------------------
+# SECURITY
+# -------------------------------
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-dev-key")
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-!hiu6^af96x@#+nne+izfk)zem_5h!veoe0=)^iw)n2@0xs9hj"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
-# Application definition
-
+# -------------------------------
+# APPLICATIONS
+# -------------------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -49,7 +48,11 @@ INSTALLED_APPS = [
     "Users",
 ]
 
+# -------------------------------
+# MIDDLEWARE
+# -------------------------------
 MIDDLEWARE = [
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Added for static files
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -79,17 +82,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "athnest_core.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# -------------------------------
+# DATABASE
+# -------------------------------
 db_url = urlparse(os.getenv("NEON_DATABASE_URL"))
 db_params = parse_qs(db_url.query)
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": db_url.path[1:],  # remove the leading '/'
+        "NAME": db_url.path[1:],
         "USER": db_url.username,
         "PASSWORD": db_url.password,
         "HOST": db_url.hostname,
@@ -100,6 +102,9 @@ DATABASES = {
     }
 }
 
+# -------------------------------
+# CACHE / REDIS
+# -------------------------------
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -110,52 +115,43 @@ CACHES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# -------------------------------
+# AUTHENTICATION
+# -------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = "static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-CORS_ALLOW_ALL_ORIGINS = True  # not recommended unless you're debugging
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
+
+# -------------------------------
+# INTERNATIONALIZATION
+# -------------------------------
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
+USE_I18N = True
+USE_TZ = True
+
+# -------------------------------
+# STATIC FILES
+# -------------------------------
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Required by Whitenoise for production
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# -------------------------------
+# MISC
+# -------------------------------
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+CORS_ALLOW_ALL_ORIGINS = True  # Dev only. Limit for prod.
