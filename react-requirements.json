@@ -1,0 +1,70 @@
+{
+  "name": "Lenovo",
+  "dependencies": {
+    "@supabase/supabase-js": {
+      "version": "2.49.4",
+      "resolved": "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-2.49.4.tgz",
+      "overridden": false
+    },
+    "@tailwindcss/postcss": {
+      "version": "4.1.4",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/postcss/-/postcss-4.1.4.tgz",
+      "overridden": false
+    },
+    "@tailwindcss/vite": {
+      "version": "4.1.4",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.1.4.tgz",
+      "overridden": false
+    },
+    "autoprefixer": {
+      "version": "10.4.21",
+      "resolved": "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.21.tgz",
+      "overridden": false
+    },
+    "axios": {
+      "version": "1.8.4",
+      "resolved": "https://registry.npmjs.org/axios/-/axios-1.8.4.tgz",
+      "overridden": false
+    },
+    "firebase": {
+      "version": "11.6.0",
+      "resolved": "https://registry.npmjs.org/firebase/-/firebase-11.6.0.tgz",
+      "overridden": false
+    },
+    "framer-motion": {
+      "version": "12.7.4",
+      "resolved": "https://registry.npmjs.org/framer-motion/-/framer-motion-12.7.4.tgz",
+      "overridden": false
+    },
+    "postcss": {
+      "version": "8.5.3",
+      "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.3.tgz",
+      "overridden": false
+    },
+    "react-hook-form": {
+      "version": "7.55.0",
+      "resolved": "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.55.0.tgz",
+      "overridden": false
+    },
+    "react-router-dom": {
+      "version": "7.5.1",
+      "resolved": "https://registry.npmjs.org/react-router-dom/-/react-router-dom-7.5.1.tgz",
+      "overridden": false
+    },
+    "tailwindcss": {
+      "version": "4.1.4",
+      "resolved": "https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.1.4.tgz",
+      "overridden": false
+    },
+    "tsx": {
+      "version": "4.19.3",
+      "resolved": "https://registry.npmjs.org/tsx/-/tsx-4.19.3.tgz",
+      "overridden": false
+    },
+    "typescript": {
+      "version": "5.8.2",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.8.2.tgz",
+      "overridden": false
+    }
+  }
+}
