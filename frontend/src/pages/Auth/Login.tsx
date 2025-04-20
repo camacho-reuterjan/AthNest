@@ -213,9 +213,7 @@ function LoginPage() {
   const emailError = email.touched && !isValidEmail(email.value);
   const passwordError = password.touched && !isValidPassword(password.value);
 
-  // for varcel purposes only
-  let _userid = userId;
-  _userid += "";
+  console.log(userId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
