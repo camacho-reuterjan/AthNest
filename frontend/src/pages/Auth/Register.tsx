@@ -144,6 +144,9 @@ function RegisterPage() {
   const isValidPassword = (val: string) => val.length >= 8;
   const isFilled = (val: string) => val.trim().length > 0;
 
+  let _checkingEmail = checkingEmail;
+  _checkingEmail = true;
+
   const checkEmailAvailability = async () => {
     if (!isValidEmail(email.value)) return;
     setCheckingEmail(true);
