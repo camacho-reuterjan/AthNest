@@ -202,7 +202,7 @@ function LoginPage() {
   });
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
+  // const [userId, setUserId] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const isValidEmail = (value: string) =>
@@ -232,7 +232,7 @@ function LoginPage() {
         storage.setItem("access_token", access_token);
         storage.setItem("user_id", user_id);
         storage.setItem("username", username);
-        setUserId(user_id);
+        // setUserId(user_id);
         navigate("/homepage");
       } else {
         console.error("Login failed:", data.error || "Unknown error");

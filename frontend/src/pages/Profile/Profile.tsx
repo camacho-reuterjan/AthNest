@@ -150,18 +150,18 @@ function SettingsSection() {
 
 export default function ProfilePage() {
   const { username } = useParams<{ username: string }>();
-  const [userId, setUserId] = useState<string | null>(null);
+  // const [userId, setUserId] = useState<string | null>(null);
   const [profile, setProfile] = useState<ProfileFields | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const storage = localStorage.getItem("access_token")
-      ? localStorage
-      : sessionStorage;
-    const id = storage.getItem("user_id");
-    setUserId(id);
-  }, []);
+  // useEffect(() => {
+  //   const storage = localStorage.getItem("access_token")
+  //     ? localStorage
+  //     : sessionStorage;
+  //   const id = storage.getItem("user_id");
+  //   setUserId(id);
+  // }, []);
 
   useEffect(() => {
     if (!username) return;
