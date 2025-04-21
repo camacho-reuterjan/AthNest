@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import LoadingAnimation from "./loading-animation";
 export default function Ribbon() {
   const [userId, setUserId] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
+  // const [username, setUsername] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadingProfileRedirect, setLoadingProfileRedirect] = useState(false);
   const navigate = useNavigate();
@@ -26,9 +26,10 @@ export default function Ribbon() {
           return res.json();
         })
         .then((data) => {
-          setUsername(data.username);
+          // setUsername(data.username);
           // Delay for 1s after fetching data before hiding loader
           setTimeout(() => setLoading(false), 20);
+          console.log(data);
         })
         .catch((err) => {
           console.error("Error fetching username from userId", err);
