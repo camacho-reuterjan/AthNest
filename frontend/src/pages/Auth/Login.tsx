@@ -1,8 +1,8 @@
+// Login.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "../../components/loading-animation";
 
-// Shared interface for input props
 interface InputProps {
   value: string;
   touched: boolean;
@@ -143,7 +143,6 @@ function SignUpLink() {
 
 function GoogleSignIn() {
   const [loading, setLoading] = useState(false);
-
   const handleGoogleSignIn = () => {
     setLoading(true);
     setTimeout(() => {
@@ -213,8 +212,6 @@ function LoginPage() {
   const emailError = email.touched && !isValidEmail(email.value);
   const passwordError = password.touched && !isValidPassword(password.value);
 
-  console.log(userId);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValidEmail(email.value) || !isValidPassword(password.value)) return;
@@ -230,12 +227,12 @@ function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        const { access_token, user_id } = data;
+        const { access_token, user_id, username } = data;
         const storage = rememberMe ? localStorage : sessionStorage;
         storage.setItem("access_token", access_token);
         storage.setItem("user_id", user_id);
+        storage.setItem("username", username);
         setUserId(user_id);
-        console.log("Login successful. user_id:", user_id);
         navigate("/homepage");
       } else {
         console.error("Login failed:", data.error || "Unknown error");
